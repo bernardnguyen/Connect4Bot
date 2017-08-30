@@ -244,8 +244,6 @@ function empty(dimensions) {
 
 function botMove(){
     var next = bot.next(boardRep);
-    console.log(next);
-
     animateBot(next);
 }
 

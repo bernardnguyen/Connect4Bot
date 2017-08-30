@@ -1,0 +1,17 @@
+{
+  "name": "bernardnguyen",
+  "version": "1.0.0",
+  "main": "main.js",
+  "engines": {
+    "node": "8.3.0",
+    "npm": "5.3.0"
+  },
+  "script": {
+    "start": "node main.js"
+  },
+  "author": "Bernard Quy Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
