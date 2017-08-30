@@ -1,6 +1,8 @@
 var turn = 'YOU';
 var gameOver = false;
 var winner;
+var bot = randomIdiot;
+var boardRep = empty([7,6]);
 
 if (typeof document != 'undefined') {
 
@@ -30,7 +32,7 @@ if (typeof document != 'undefined') {
 
     var opponent = document.createElement('button');
     opponent.id = 'opponent';
-    opponent.innerText = 'Current Opponent: Dummy';
+    opponent.innerText = 'Current Opponent: ' + bot.name;
     opponent.className = 'nav-button';
     navbar.append(opponent);
 
@@ -52,7 +54,7 @@ if (typeof document != 'undefined') {
     overBoard.id = 'overBoard';
     game.append(overBoard);
 
-    for (i = 1; i < 8; i++) {
+    for (i = 0; i < 7; i++) {
         var floatPiece = document.createElement('div');
         floatPiece.className = 'floatPiece';
         floatPiece.id = 'floatPiece' + i;
@@ -63,13 +65,13 @@ if (typeof document != 'undefined') {
     board.id = 'board';
     game.append(board);
 
-    for (i = 1; i < 8; i++) {
+    for (i = 0; i < 7; i++) {
         var column = document.createElement('div');
         column.className = 'column';
         column.id = 'column' + i;
         addEvents(column, i);
         board.append(column);
-        for (j = 1; j < 7; j++) {
+        for (j = 0; j < 6; j++) {
             var piece = document.createElement('div');
             piece.className = 'piece empty';
             piece.id = 'piece' + i + j;
@@ -84,7 +86,9 @@ function addEvents(column, i) {
     var floatPiece = document.getElementById('floatPiece' + i);
 
     column.addEventListener('mouseover', function () {
-        floatPiece.className = 'floatPiece showFloat ' + turn;
+        if (turn == 'YOU'){
+            floatPiece.className = 'floatPiece showFloat YOU';
+        }
     });
 
     column.addEventListener('mouseleave', function () {
@@ -92,8 +96,10 @@ function addEvents(column, i) {
     });
 
     column.addEventListener('click', function () {
-        progressGame(i);
-        floatPiece.className = 'floatPiece showFloat ' + turn;
+        if (turn == 'YOU'){
+            progressGame(i);
+            floatPiece.className = 'floatPiece';
+        }
     });
 }
 
@@ -102,10 +108,15 @@ function progressGame(i) {
         addPiece(i);
         checkGameOver();
     }
+    if (!gameOver){
+        updateBoardRep();
+        botMove();
+        checkGameOver();
+    }
 }
 
 function addPiece(i) {
-    for (j = 6; j > 0; j--) {
+    for (j = 5; j > -1; j--) {
         var piece = document.getElementById('piece' + i + j);
         if (piece.className == 'piece empty') {
             piece.className = 'piece ' + turn;
@@ -123,8 +134,8 @@ function clearBoard() {
     turn = 'YOU';
     gameOver = false;
     announcer.innerText = '';
-    for (i = 1; i < 8; i++) {
-        for (j = 1; j < 7; j++) {
+    for (i = 0; i < 7; i++) {
+        for (j = 0; j < 6; j++) {
             document.getElementById('piece' + i + j).className = 'piece empty';
         }
     }
@@ -140,8 +151,8 @@ function checkGameOver() {
 }
 
 function checkHorizontal() {
-    for (i = 1; i < 5; i++) {
-        for (j = 1; j < 7; j++) {
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 6; j++) {
             var name = document.getElementById('piece' + i + j).className;
             if (name != 'piece empty') {
                 var name1 = document.getElementById('piece' + (i + 1) + j).className;
@@ -158,8 +169,8 @@ function checkHorizontal() {
 }
 
 function checkVertical() {
-    for (i = 1; i < 8; i++) {
-        for (j = 1; j < 4; j++) {
+    for (i = 0; i < 7; i++) {
+        for (j = 0; j < 3; j++) {
             var name = document.getElementById('piece' + i + j).className;
             if (name != 'piece empty') {
                 var name1 = document.getElementById('piece' + i + (j + 1)).className;
@@ -176,8 +187,8 @@ function checkVertical() {
 }
 
 function checkDiagonal() {
-    for (i = 1; i < 5; i++) {
-        for (j = 1; j < 4; j++) {
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 3; j++) {
             var name = document.getElementById('piece' + i + j).className;
             if (name != 'piece empty') {
                 var name1 = document.getElementById('piece' + (i + 1) + (j + 1)).className;
@@ -191,8 +202,8 @@ function checkDiagonal() {
             }
         }
     }
-    for (i = 1; i < 5; i++) {
-        for (j = 4; j < 7; j++) {
+    for (i = 0; i < 4; i++) {
+        for (j = 3; j < 6; j++) {
             var name = document.getElementById('piece' + i + j).className;
             if (name != 'piece empty') {
                 var name1 = document.getElementById('piece' + (i + 1) + (j - 1)).className;
@@ -206,4 +217,74 @@ function checkDiagonal() {
             }
         }
     }
+}
+
+function updateBoardRep(){
+    for(i=0; i<7; i++){
+        for(j=0; j<6; j++){
+            var space = document.getElementById('piece'+i+j);
+            if(space.className == 'piece empty'){
+                boardRep[i][j] = ' ';
+            } else if(space.className == 'piece YOU'){
+                boardRep[i][j] = 'X';
+            } else boardRep[i][j] = 'O';
+        }
+    }
+}
+
+function empty(dimensions) {
+    var array = [];
+
+    for (var i = 0; i < dimensions[0]; ++i) {
+        array.push(dimensions.length == 1 ? ' ' : empty(dimensions.slice(1)));
+    }
+
+    return array;
+}
+
+function botMove(){
+    var next = bot.next(boardRep);
+    console.log(next);
+
+    animateBot(next);
+}
+
+function animateBot(next){    
+    var currentRight = 0;
+    var id = setInterval(right, 300);
+    
+    var currentLeft = 6;
+    var id = setTimeout(function() {setInterval(left, 300);}, 1800);
+
+    function right() {
+        if (currentRight == 7) {
+            clearInterval(id);
+        } else {
+            if(currentRight != 0){
+                document.getElementById('floatPiece' + (currentRight-1)).className = 'floatPiece';
+            }
+
+            document.getElementById('floatPiece' + currentRight).className = 'floatPiece showFloat BOT';
+            currentRight++;
+        }    
+    }
+
+    function left() {
+        if (currentLeft == next-1) {
+            clearInterval(id);
+        } else {
+            if(currentLeft != 6){
+                document.getElementById('floatPiece' + (currentLeft+1)).className = 'floatPiece';
+            }
+
+            document.getElementById('floatPiece' + currentLeft).className = 'floatPiece showFloat BOT';
+            currentLeft--;
+        }    
+    }
+
+    time = 300*7 + 300*(7-next);
+    setTimeout(function(){
+        document.getElementById('floatPiece'+next).className = 'floatPiece';
+        addPiece(next);
+    }, time);
 }
