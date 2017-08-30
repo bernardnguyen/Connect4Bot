@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+Tammudu');
+
+*{margin: 0px; font-family: 'Baloo Tammudu', cursive;}
+*:focus {outline: none;}
+
+#header{
+    background-color: #6565FF;
+    width: 100%;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: row;
+}
+
+#title{
+    margin-left: 50px;
+    height: 80px;
+    font-size: 3em;
+    text-align: center;
+    color: white;
+}
+
+#navbar{
+    margin: auto;
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-button{
+    height: 40px;
+    text-align: right;
+    color: #FFFFFF;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+}
+
+.nav-button:hover{
+    color: #FEFE6A;
+}
+
+#main{
+    margin-top: 10px;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 490px;
+    margin: auto;
+}
+
+#announcer{
+    height: 30px;
+    text-align: center;
+    font-size: 2em;
+    color: #6565FF;
+}
+
+#overBoard{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+}
+
+.YOU{
+    background-color: #E33A3A;
+}
+
+.BOT{
+    background-color: #FEFE6A;
+}
+
+.floatPiece{
+    border-radius: 50%;
+	width: 50px;
+    height: 50px;
+    margin: 10px;
+    visibility: hidden;
+}
+
+.showFloat{
+    visibility: visible;
+}
+
+#board{
+    width: 100%;
+    background-color: #6565FF;
+    height: 420px;
+    display: flex;
+    flex-direction: row;   
+}
+
+.column{
+    height: 100%;
+    width: 70px;
+    display: flex;
+    flex-direction:column;
+}
+
+.piece{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.empty{
+    background-color: white;
+}
+
