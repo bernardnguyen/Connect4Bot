@@ -32,9 +32,38 @@ if (typeof document != 'undefined') {
 
     var opponent = document.createElement('button');
     opponent.id = 'opponent';
-    opponent.innerText = 'Current Opponent: ' + bot.name;
-    opponent.className = 'nav-button';
+    opponent.innerText = 'Choose Opponent';
+    opponent.className = 'nav-button dropdown';
     navbar.append(opponent);
+
+    var content = document.createElement('div');
+    content.className = 'dropdown-content';
+    opponent.append(content);
+
+    var randBot = document.createElement('button');
+    randBot.className = 'nav-button selected';
+    randBot.innerText = 'RandomIdiot';
+    randBot.addEventListener('click', function(){
+        currentSelection.className = 'nav-button';
+        currentSelection = randBot;
+        currentSelection.className = 'nav-button selected';
+        bot=randomIdiot;
+        clearBoard();
+    });
+    content.append(randBot);
+    var currentSelection = randBot;
+
+    var minimaxBot = document.createElement('button');
+    minimaxBot.className = 'nav-button';
+    minimaxBot.innerText = 'Minimax';
+    minimaxBot.addEventListener('click', function(){
+        currentSelection.className = 'nav-button';
+        currentSelection = minimaxBot;
+        currentSelection.className = 'nav-button selected';
+        bot=minimax;
+        clearBoard();
+    });
+    content.append(minimaxBot);
 
     var main = document.createElement('div');
     main.id = 'main';
@@ -106,12 +135,14 @@ function addEvents(column, i) {
 function progressGame(i) {
     if (!gameOver) {
         addPiece(i);
+        updateBoardRep();
         checkGameOver();
     }
     if (!gameOver){
-        updateBoardRep();
         botMove();
-        checkGameOver();
+        setTimeout(function(){
+            checkGameOver();
+        }, 4500);
     }
 }
 
@@ -230,16 +261,6 @@ function updateBoardRep(){
             } else boardRep[i][j] = 'O';
         }
     }
-}
-
-function empty(dimensions) {
-    var array = [];
-
-    for (var i = 0; i < dimensions[0]; ++i) {
-        array.push(dimensions.length == 1 ? ' ' : empty(dimensions.slice(1)));
-    }
-
-    return array;
 }
 
 function botMove(){

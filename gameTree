@@ -1,0 +1,50 @@
+function createTree(boardRep, crumb, layers){
+    var tree;
+    var count = layers;
+    tree.root = boardRep;
+    tree.children = [];
+
+    print(root);
+    console.log("MY CHILDREN:");
+
+    return function(){
+        if (count > 0){
+            for(i=0; i<7; i++){
+                if(legal(root, i)){
+                    var newBoard = newBoard(boardRep, i);
+                    children.push(createTree(newBoard, i, count-1));
+                    print(newBoard);
+                }
+            }
+        }
+        count--;
+    }
+
+    return tree;
+}
+
+function print(board){
+    var output = '';
+    for (j=0; j< 6; j++){
+        for(i=0; i<7; i++){
+            output.append(board[i][j]);
+        }
+        output.append('\n');
+    }
+    console.log(output);
+}
+
+function legal(boardRep, i){
+    if(boardRep[i][0] == ' '){
+        return true;
+    } return false;
+}
+
+function newBoard(boardRep, i){
+    for(j=5; j>-1; j--){
+        if(boardRep[i][j] == ' '){
+            boardRep[i][j] = 'O';
+            break;
+        }
+    }
+}

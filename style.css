@@ -5,6 +5,7 @@
 
 #header{
     background-color: #6565FF;
+    border-bottom: 2px solid #4A4AFD;
     width: 100%;
     vertical-align: middle;
     display: flex;
@@ -26,13 +27,40 @@
     flex-direction: column;
 }
 
+.dropdown{
+    position: relative;
+    display: inline-block;
+    padding: 0;
+}
+
+.dropdown-content{
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    line-height: 1.1em;
+    vertical-align: right;
+    margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: #6565FF;
+    visibility: hidden;
+}
+
+.dropdown:hover .dropdown-content{
+    visibility: visible;
+}
+
 .nav-button{
     height: 40px;
     text-align: right;
     color: #FFFFFF;
     background: none;
     border: none;
-    font-size: 1.5em;
+    font-size: 1.1em;
+}
+
+.selected{
+    color: #FEFE6A;
 }
 
 .nav-button:hover{
