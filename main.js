@@ -142,7 +142,7 @@ function progressGame(i) {
         botMove();
         setTimeout(function(){
             checkGameOver();
-        }, 4500);
+        }, 4000);
     }
 }
 

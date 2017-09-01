@@ -1,7 +1,7 @@
 var minimax = {
     'name': 'Minimax',
     'next': function (boardRep) {
-        var depth = 2;
+        var depth = 4;
         var gameTree = createTree(boardRep, -1, depth, true);
 
         gameTree.score = MINIMAX(gameTree, depth, true);
