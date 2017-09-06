@@ -3,6 +3,7 @@ var gameOver = false;
 var winner;
 var bot = randomIdiot;
 var boardRep = empty([7,6]);
+var delay;
 
 if (typeof document != 'undefined') {
 
@@ -142,7 +143,7 @@ function progressGame(i) {
         botMove();
         setTimeout(function(){
             checkGameOver();
-        }, 4000);
+        }, delay);
     }
 }
 
@@ -302,6 +303,7 @@ function animateBot(next){
     }
 
     time = 300*7 + 300*(7-next);
+    delay = time;
     setTimeout(function(){
         document.getElementById('floatPiece'+next).className = 'floatPiece';
         addPiece(next);
