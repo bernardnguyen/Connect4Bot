@@ -1,10 +1,10 @@
 var minimax = {
     'name': 'Minimax',
     'next': function (boardRep) {
-        var depth = 4;
+        var depth = 5;
         var gameTree = createTree(boardRep, -1, depth, true);
 
-        gameTree.score = MINIMAX(gameTree, depth, true);
+        gameTree.score = alphaBeta(gameTree, depth, -Infinity, Infinity, true);
 
         var bestCol = -1;
         var maxScore = -1000;
@@ -19,7 +19,31 @@ var minimax = {
     }
 }
 
-function MINIMAX(node, depth, isMaximizingPlayer) {
+// function MINIMAX(node, depth, isMaximizingPlayer) {
+//     if (node.children.length == 0 || depth == 0) {
+//         return evaluate(node.root);
+//     }
+
+//     if (isMaximizingPlayer) {
+//         var bestVal = -Infinity;
+//         for (var i = 0; i < node.children.length; i++) {
+//             var value = MINIMAX(node.children[i], depth - 1, false);
+//             bestVal = Math.max(value, bestVal);
+//             node.children[i].score = value;
+//         }
+//         return bestVal;
+//     } else {
+//         bestVal = Infinity;
+//         for (var i = 0; i < node.children.length; i++) {
+//             var value = MINIMAX(node.children[i], depth - 1, true);
+//             bestVal = Math.min(value, bestVal);
+//             node.children[i].score = value;
+//         }
+//         return bestVal;
+//     }
+// }
+
+function alphaBeta(node, depth, alpha, beta, isMaximizingPlayer) {
     if (node.children.length == 0 || depth == 0) {
         return evaluate(node.root);
     }
@@ -27,17 +51,27 @@ function MINIMAX(node, depth, isMaximizingPlayer) {
     if (isMaximizingPlayer) {
         var bestVal = -Infinity;
         for (var i = 0; i < node.children.length; i++) {
-            var value = MINIMAX(node.children[i], depth - 1, false);
+            var value = alphaBeta(node.children[i], depth - 1, alpha, beta, false);
             bestVal = Math.max(value, bestVal);
+            alpha = Math.max(alpha, bestVal);
             node.children[i].score = value;
+
+            if(beta<=alpha){
+                break;
+            }
         }
         return bestVal;
     } else {
         bestVal = Infinity;
         for (var i = 0; i < node.children.length; i++) {
-            var value = MINIMAX(node.children[i], depth - 1, true);
+            var value = alphaBeta(node.children[i], depth - 1, alpha, beta, true);
             bestVal = Math.min(value, bestVal);
+            beta = Math.min(beta, bestVal);
             node.children[i].score = value;
+
+            if(beta<=alpha){
+                break;
+            }
         }
         return bestVal;
     }
