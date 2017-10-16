@@ -8,6 +8,7 @@ var neuralNet = {
 var inputs = [];
 var weights1 = [];
 var hiddenLayer = [];
+var outputs = [];
 
 function processInputs(board){
     inputs = [];

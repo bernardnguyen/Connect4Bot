@@ -1,7 +1,7 @@
 var turn = 'YOU';
 var gameOver = false;
 var winner;
-var bot = randomIdiot;
+var bot = minimax;
 var boardRep = empty([7,6]);
 var delay;
 
@@ -42,7 +42,7 @@ if (typeof document != 'undefined') {
     opponent.append(content);
 
     var randBot = document.createElement('button');
-    randBot.className = 'nav-button selected';
+    randBot.className = 'nav-button';
     randBot.innerText = 'RandomIdiot';
     randBot.addEventListener('click', function(){
         currentSelection.className = 'nav-button';
@@ -52,10 +52,10 @@ if (typeof document != 'undefined') {
         clearBoard();
     });
     content.append(randBot);
-    var currentSelection = randBot;
+    var currentSelection = minimaxBot;
 
     var minimaxBot = document.createElement('button');
-    minimaxBot.className = 'nav-button';
+    minimaxBot.className = 'nav-button selected';
     minimaxBot.innerText = 'Minimax';
     minimaxBot.addEventListener('click', function(){
         currentSelection.className = 'nav-button';
