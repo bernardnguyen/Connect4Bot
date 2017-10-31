@@ -1,6 +1,6 @@
 var minimax = {
     'name': 'Minimax',
-    'next': function (boardRep) {
+    'next': function (boardRep, recentMove) {
         var depth = 5;
         var gameTree = createTree(boardRep, -1, depth, true);
 

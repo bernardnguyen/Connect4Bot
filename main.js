@@ -4,6 +4,7 @@ var winner;
 var bot = minimax;
 var boardRep = empty([7,6]);
 var delay;
+var recentMove;
 
 if (typeof document != 'undefined') {
 
@@ -138,7 +139,7 @@ function addEvents(column, i) {
     });
 
     column.addEventListener('click', function () {
-        if (turn == 'YOU'){
+        if (turn == 'YOU' && boardRep[i][0] == ' '){
             progressGame(i);
             floatPiece.className = 'floatPiece';
         }
@@ -148,6 +149,7 @@ function addEvents(column, i) {
 function progressGame(i) {
     if (!gameOver) {
         addPiece(i);
+        recentMove = i;
         updateBoardRep();
         checkGameOver();
     }
@@ -155,6 +157,7 @@ function progressGame(i) {
         botMove();
         setTimeout(function(){
             checkGameOver();
+            updateBoardRep();
         }, delay);
     }
 }
@@ -182,11 +185,6 @@ function clearBoard() {
         for (j = 0; j < 6; j++) {
             document.getElementById('piece' + i + j).className = 'piece empty';
         }
-    }
-
-    // Certain bots reset function:
-    if(bot == copycat){
-        copycat.resetBoard();
     }
 }
 
@@ -282,7 +280,7 @@ function updateBoardRep(){
 }
 
 function botMove(){
-    var next = bot.next(boardRep);
+    var next = bot.next(boardRep, recentMove);
     animateBot(next);
 }
 
