@@ -52,8 +52,19 @@ if (typeof document != 'undefined') {
         clearBoard();
     });
     content.append(randBot);
-    var currentSelection = minimaxBot;
 
+    var copyBot = document.createElement('button');
+    copyBot.className = 'nav-button';
+    copyBot.innerText = 'CopyCat';
+    copyBot.addEventListener('click', function(){
+        currentSelection.className = 'nav-button';
+        currentSelection = copyBot;
+        currentSelection.className = 'nav-button selected';
+        bot=copycat;
+        clearBoard();
+    });
+    content.append(copyBot);
+    
     var minimaxBot = document.createElement('button');
     minimaxBot.className = 'nav-button selected';
     minimaxBot.innerText = 'Minimax';
@@ -65,6 +76,7 @@ if (typeof document != 'undefined') {
         clearBoard();
     });
     content.append(minimaxBot);
+    var currentSelection = minimaxBot;
 
     var main = document.createElement('div');
     main.id = 'main';
@@ -170,6 +182,11 @@ function clearBoard() {
         for (j = 0; j < 6; j++) {
             document.getElementById('piece' + i + j).className = 'piece empty';
         }
+    }
+
+    // Certain bots reset function:
+    if(bot == copycat){
+        copycat.resetBoard();
     }
 }
 

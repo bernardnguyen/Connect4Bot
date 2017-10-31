@@ -19,30 +19,6 @@ var minimax = {
     }
 }
 
-// function MINIMAX(node, depth, isMaximizingPlayer) {
-//     if (node.children.length == 0 || depth == 0) {
-//         return evaluate(node.root);
-//     }
-
-//     if (isMaximizingPlayer) {
-//         var bestVal = -Infinity;
-//         for (var i = 0; i < node.children.length; i++) {
-//             var value = MINIMAX(node.children[i], depth - 1, false);
-//             bestVal = Math.max(value, bestVal);
-//             node.children[i].score = value;
-//         }
-//         return bestVal;
-//     } else {
-//         bestVal = Infinity;
-//         for (var i = 0; i < node.children.length; i++) {
-//             var value = MINIMAX(node.children[i], depth - 1, true);
-//             bestVal = Math.min(value, bestVal);
-//             node.children[i].score = value;
-//         }
-//         return bestVal;
-//     }
-// }
-
 function alphaBeta(node, depth, alpha, beta, isMaximizingPlayer) {
     if (node.children.length == 0 || depth == 0) {
         return evaluate(node.root);
