@@ -28,7 +28,7 @@ function alphaBeta(node, depth, alpha, beta, isMaximizingPlayer) {
         var bestVal = -Infinity;
         for (var i = 0; i < node.children.length; i++) {
             var value = alphaBeta(node.children[i], depth - 1, alpha, beta, false);
-            bestVal = Math.max(value, bestVal);
+            bestVal = Math.max(Math.floor(0.7*value), bestVal);
             alpha = Math.max(alpha, bestVal);
             node.children[i].score = value;
 
@@ -41,7 +41,7 @@ function alphaBeta(node, depth, alpha, beta, isMaximizingPlayer) {
         bestVal = Infinity;
         for (var i = 0; i < node.children.length; i++) {
             var value = alphaBeta(node.children[i], depth - 1, alpha, beta, true);
-            bestVal = Math.min(value, bestVal);
+            bestVal = Math.min(Math.floor(1.3*value), bestVal);
             beta = Math.min(beta, bestVal);
             node.children[i].score = value;
 
@@ -56,8 +56,8 @@ function alphaBeta(node, depth, alpha, beta, isMaximizingPlayer) {
 function evaluate(board) {
     var score = 0;
     score += gaussian(board);
-    score += checkFor3(board, 4);
-    score += checkFor4(board, 8);
+    score += checkFor3(board, 3);
+    score += checkFor4(board, 7);
     return score;
 }
 
