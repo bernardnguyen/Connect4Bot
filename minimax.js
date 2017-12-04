@@ -57,7 +57,7 @@ function evaluate(board) {
     var score = 0;
     score += gaussian(board);
     score += checkFor3(board, 4);
-    score += checkFor4(board, 5);
+    score += checkFor4(board, 8);
     return score;
 }
 
